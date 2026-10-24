@@ -18,7 +18,7 @@ object ContainerStyles {
     }
 
     val image = Style {
-        shape(shapes.extraLargeIncreased)
+        shape(shapes.extraExtraLarge)
         border(dimensions.imageBorder, colors.onBackground)
     }
 }

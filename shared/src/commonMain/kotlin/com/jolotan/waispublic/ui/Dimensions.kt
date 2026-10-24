@@ -9,6 +9,7 @@ object Dimensions {
     val internalContainerPadding: Dp = 20.dp
 
     val columnVerticalSpacing = 16.dp
+    val columnLargeVerticalSpacing = 24.dp
     val columnSmallVerticalSpacing = 12.dp
 
     val rowHorizontalSpacing = 24.dp

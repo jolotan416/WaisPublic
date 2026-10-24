@@ -187,7 +187,7 @@ fun ScreenshotsDetailsSections(modifier: Modifier = Modifier, style: Style = Sty
             AppTheme.dimensions.rowHorizontalSpacing,
             Alignment.CenterHorizontally
         ),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnVerticalSpacing)
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnLargeVerticalSpacing)
     ) {
         screenshots.forEach { (image, caption) ->
             ScreenshotItem(
@@ -215,6 +215,11 @@ fun ScreenshotItem(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnSmallVerticalSpacing),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        StyledText(
+            modifier = Modifier.fillMaxWidth(),
+            style = AppTheme.styles.text.subSectionText then Style { textAlign(TextAlign.Center) },
+            text = caption
+        )
         Image(
             modifier = Modifier.fillMaxWidth()
                 .aspectRatio(SCREENSHOT_ASPECT_RATIO)
@@ -222,11 +227,6 @@ fun ScreenshotItem(
             painter = painterResource(image),
             contentScale = ContentScale.Fit,
             contentDescription = caption
-        )
-        StyledText(
-            modifier = Modifier.fillMaxWidth(),
-            style = AppTheme.styles.text.subSectionText then Style { textAlign(TextAlign.Center) },
-            text = caption
         )
     }
 }

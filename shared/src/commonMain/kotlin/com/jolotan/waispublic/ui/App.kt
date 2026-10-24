@@ -79,6 +79,26 @@ fun App(windowSizeClass: WindowSizeClass = currentWindowAdaptiveInfoV2().windowS
                     }
                 }
 
+                item(key = "about") {
+                    TimedAnimatedVisibility(
+                        modifier = widthModifier,
+                        key = Unit,
+                        duration = VISIBILITY_ANIMATION_DURATION,
+                        isVisible = isAnimatedVisibilityFinished,
+                        updateVisibility = { isAnimatedVisibilityFinished = it }
+                    ) {
+                        DetailsSection(modifier = Modifier.fillMaxWidth(), title = "About Wais") {
+                            StyledText(
+                                modifier = Modifier.fillMaxWidth(),
+                                style = SectionTextStyle(),
+                                text = """
+                                Wais is a budget tracking app that aims to simplify financial organization, especially for (but not limited to) Filipinos. It supports multiple profiles, automatic exchange rates, savings goals, budget allocations, and cash flow tracking, all packaged in one easy-to-use app.
+                            """.trimIndent()
+                            )
+                        }
+                    }
+                }
+
                 stickyHeader(key = DetailsType.entries) {
                     TimedAnimatedVisibility(
                         modifier = widthModifier,
