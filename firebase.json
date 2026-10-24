@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "webApp/build/dist/wasmJs/productionExecutable",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

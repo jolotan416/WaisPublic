@@ -1,0 +1,94 @@
+<!doctype html>
+<!-- Published copy of docs/PRIVACY_POLICY.md. Keep the two in step. -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wais Privacy Policy</title>
+    <style>
+        :root { color-scheme: light dark; --fg: #1b1b1f; --muted: #5d5e66; --bg: #ffffff; --link: #3a5ba9; }
+        @media (prefers-color-scheme: dark) {
+          :root { --fg: #e4e2e6; --muted: #a9a9b3; --bg: #121316; --link: #b0c6ff; }
+        }
+        body { margin: 0; background: var(--bg); color: var(--fg);
+               font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+        main { max-width: 42rem; margin: 0 auto; padding: 2rem 16px 4rem; }
+        h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+        h2 { font-size: 1.15rem; margin-top: 2rem; }
+        .effective { color: var(--muted); margin-top: 0; }
+        a { color: var(--link); }
+    </style>
+</head>
+<body>
+<main>
+    <h1>Wais Privacy Policy</h1>
+    <p class="effective">Effective 2026-10-18</p>
+
+    <p>Wais is a budget tracker that works without an account. This policy explains what leaves your device
+        and what does not.</p>
+
+    <h2>Your financial data stays on your device</h2>
+    <p>Your transactions, amounts, accounts, account names, categories, budgets, savings goals, profiles and
+        notes are stored only on your device. Wais has no account system and no server that receives them.
+        Wais never sends them anywhere.</p>
+
+    <h2>What is collected, and only with your permission</h2>
+    <p>On first launch, Wais asks whether you allow anonymous usage statistics and crash reports.
+        <strong>Nothing is collected until you choose “Allow”.</strong> If you choose “Don’t allow”, nothing
+        is collected.</p>
+    <p>If you allow it, Wais uses two Google Firebase services:</p>
+    <ul>
+        <li><strong>Firebase Analytics</strong> records how the app is used: for example, which screens are
+            opened, when the app is first opened, and how long sessions last. With these events it records your
+            device model, operating system version, app version, language, approximate country, and a random
+            identifier for this installation. Wais uses this to see which features matter and where people get
+            stuck.
+            <p>It also records when you use certain features: finishing onboarding, creating a profile, adding
+            a transaction, creating a savings goal or withdrawing from or cloning one, creating a budget, and
+            refreshing or setting an exchange rate. <strong>These events only say that a feature was used.
+            They contain nothing you entered</strong>: no amounts, names, notes, categories, accounts or
+            currencies. Some events add one detail about how the feature was used: whether a transaction is
+            one-off or recurring and whether it is an expense, income or transfer; whether a budget is monthly
+            or yearly; whether an exchange-rate refresh worked; and whether a manual rate is kept until
+            reset.</p></li>
+        <li><strong>Firebase Crashlytics</strong> sends a report when the app crashes: the technical details of
+            the error, your device model, operating system version, app version, the time of the crash, and a
+            random identifier for this installation. Wais uses this to find and fix bugs.</li>
+    </ul>
+    <p>Neither service receives your name, email address, or financial data. Wais does not use this data for
+        advertising, does not sell it, and does not share it with anyone other than Google, which processes it
+        for Wais. See
+        <a href="https://policies.google.com/technologies/partner-sites">how Google uses information from apps
+            that use its services</a> and the
+        <a href="https://firebase.google.com/support/privacy">Firebase privacy information</a>.</p>
+
+    <h2>How long it is kept</h2>
+    <p>Google keeps Analytics event data for the retention period set for Wais’s Firebase project, which is
+        at most 14 months. It keeps Crashlytics crash reports for 90 days.</p>
+
+    <h2>Changing your choice</h2>
+    <p>You can turn usage statistics and crash reports on or off at any time in
+        <strong>Settings → Privacy → Share usage &amp; crash reports</strong>. Turning it off stops all further
+        collection.</p>
+
+    <h2>Other network use</h2>
+    <p>To convert between currencies, Wais downloads daily exchange rates from
+        <a href="https://frankfurter.dev">Frankfurter</a>. That request contains no personal or financial data. Like
+        any request over the internet, it reveals your device's IP address to Frankfurter.</p>
+
+    <h2>Device backups</h2>
+    <p>On Android, your device’s own backup (Google backup) may include Wais’s data, under your Google
+        account’s backup settings. On iOS, the same applies to iCloud device backups. Wais does not operate
+        these backups and cannot read them.</p>
+
+    <h2>Children</h2>
+    <p>Wais is not directed at children under 13 and does not knowingly collect data from them.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes, the new version will be posted at this address with a new effective date.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: <a href="mailto:jolotan.support@gmail.com">jolotan.support@gmail.com</a>.</p>
+</main>
+</body>
+</html>
