@@ -89,13 +89,11 @@ fun IntroductionComponentDetails(
             text = "Wais: Budget Tracker App",
             style = AppTheme.styles.text.primaryText then textStyle
         )
-        Spacer(modifier = Modifier.height(AppTheme.dimensions.columnSmallVerticalSpacing))
         StyledText(
             modifier = Modifier.fillMaxWidth(),
             text = "Being wais with your money just got easy.",
             style = AppTheme.styles.text.sectionText then AppTheme.styles.text.headlineText then textStyle
         )
-        Spacer(modifier = Modifier.height(AppTheme.dimensions.columnSmallVerticalSpacing))
         IntroductionComponentStatus(
             modifier = locationModifier,
             textStyle = textStyle,
@@ -149,7 +147,7 @@ fun IntroductionComponentSocialMediaButtons(
     val socialMediaButtons = listOf(
         SocialMediaButton(
             icon = SocialMediaIcon.Drawable(Res.drawable.github),
-            url = "https://github.com/jolotan416"
+            url = "https://github.com/jolotan416/WaisPublic"
         ),
         SocialMediaButton(
             icon = SocialMediaIcon.Vector(Icons.Default.Email),
