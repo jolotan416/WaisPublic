@@ -5,6 +5,7 @@
 <h1 align="center">Wais: Budget Tracker App</h1>
 
 <p align="center"><em>Being wais with your money just got easy.</em></p>
+<p align="center"><em>Official site: https://wais.jolotan.com</p>
 
 <p align="center">
   <img alt="Kotlin 2.4" src="https://img.shields.io/badge/Kotlin-2.4-7F52FF?logo=kotlin&logoColor=white" />
