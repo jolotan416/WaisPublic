@@ -3,10 +3,15 @@ package com.jolotan.waispublic.ui.molecules
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.style.Style
 import androidx.compose.foundation.style.styleable
@@ -44,6 +49,74 @@ import waispublic.shared.generated.resources.screenshot_cashflow
 import waispublic.shared.generated.resources.screenshot_dashboard
 import waispublic.shared.generated.resources.screenshot_savings
 import waispublic.shared.generated.resources.screenshot_transactions
+
+private const val MAX_FEATURE_COLUMNS = 3
+
+private data class FeatureItem(
+    val title: String,
+    val imageVector: ImageVector,
+    val description: String,
+)
+
+private val features = listOf(
+    FeatureItem(
+        title = "Multiple profiles",
+        imageVector = Icons.Default.SwitchAccount,
+        description = """
+            Organize your money your way. Set up separate books for Personal, Household, or anything else, each with its own currency. When you move money between them, we'll record it on both sides so your numbers always add up.
+        """.trimIndent()
+    ),
+    FeatureItem(
+        title = "Automatic exchange rates",
+        imageVector = Icons.Default.CurrencyExchange,
+        description = """
+            Get daily exchange rates between 165 currencies, so you can see your finances in the currencies you prefer.
+        """.trimIndent()
+    ),
+    FeatureItem(
+        title = "Budgets",
+        imageVector = Icons.Default.Wallet,
+        description = """
+            Create your own categories and give each one a monthly or yearly budget. Your dashboard shows at a glance how much you've used.
+        """.trimIndent()
+    ),
+    FeatureItem(
+        title = "Savings goals",
+        imageVector = Icons.Default.Savings,
+        description = """
+            Plan your future with savings goals. Set priorities, link each goal to one or more accounts, and we'll let you know once you've reached it.
+        """.trimIndent()
+    ),
+    FeatureItem(
+        title = "Cash flow",
+        imageVector = Icons.Default.Payments,
+        description = """
+            See where your money comes from and where it goes with expense and income breakdowns by category.
+        """.trimIndent()
+    ),
+    FeatureItem(
+        title = "Accounts",
+        imageVector = Icons.Default.AccountBalance,
+        description = """
+            Manage your accounts your way. Give each bank account, e-wallet, and credit card its own currency, group them as you like, and see your total balance in your main currency.
+        """.trimIndent()
+    ),
+    FeatureItem(
+        title = "Transactions",
+        imageVector = Icons.AutoMirrored.Default.ReceiptLong,
+        description = """
+            Record your expenses, income and transfers and we'll keep them in an organized list you can browse by month or year. You can also schedule transactions that repeat, and we'll add them for you when they're due.
+        """.trimIndent()
+    ),
+    FeatureItem(
+        title = "Privacy first",
+        imageVector = Icons.Default.PrivacyTip,
+        description = """
+            Wais works offline with no account needed, so your financial data never leaves your device. Usage analytics and crash reports are off until you turn them on, and they never include your finances.
+        """.trimIndent()
+    ),
+)
+
 
 @Composable
 fun DetailsComponent(
@@ -89,70 +162,40 @@ fun DetailsSections(
 
 @Composable
 fun FeaturesDetailsSections(modifier: Modifier = Modifier, style: Style = Style) {
-    Column(
-        modifier = modifier.styleable(style = style),
-        verticalArrangement = Arrangement.spacedBy(
-            AppTheme.dimensions.getColumnVerticalSpacing(
-                LocalCompact.current
+    BoxWithConstraints(modifier = modifier.styleable(style = style)) {
+        val horizontalSpacing = AppTheme.dimensions.rowHorizontalSpacing
+        val columns = ((maxWidth + horizontalSpacing) /
+                (AppTheme.dimensions.minFeatureCardWidth + horizontalSpacing))
+            .toInt()
+            .coerceIn(1, MAX_FEATURE_COLUMNS)
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(
+                AppTheme.dimensions.getColumnVerticalSpacing(
+                    LocalCompact.current
+                )
             )
-        )
-    ) {
-        FeatureDetailsSection(
-            title = "Multiple profiles",
-            imageVector = Icons.Default.SwitchAccount,
-            description = """
-                Organize your money your way. Set up separate books for Personal, Household, or anything else, each with its own currency. When you move money between them, we'll record it on both sides so your numbers always add up.
-            """.trimIndent()
-        )
-        FeatureDetailsSection(
-            title = "Automatic exchange rates",
-            imageVector = Icons.Default.CurrencyExchange,
-            description = """
-                Get daily exchange rates between 165 currencies, so you can see your finances in the currencies you prefer.
-            """.trimIndent()
-        )
-        FeatureDetailsSection(
-            title = "Budgets",
-            imageVector = Icons.Default.Wallet,
-            description = """
-                Create your own categories and give each one a monthly or yearly budget. Your dashboard shows at a glance how much you've used.
-            """.trimIndent()
-        )
-        FeatureDetailsSection(
-            title = "Savings goals",
-            imageVector = Icons.Default.Savings,
-            description = """
-                Plan your future with savings goals. Set priorities, link each goal to one or more accounts, and we'll let you know once you've reached it.
-            """.trimIndent()
-        )
-        FeatureDetailsSection(
-            title = "Cash flow",
-            imageVector = Icons.Default.Payments,
-            description = """
-                See where your money comes from and where it goes with expense and income breakdowns by category.
-            """.trimIndent()
-        )
-        FeatureDetailsSection(
-            title = "Accounts",
-            imageVector = Icons.Default.AccountBalance,
-            description = """
-                Manage your accounts your way. Give each bank account, e-wallet, and credit card its own currency, group them as you like, and see your total balance in your main currency.
-            """.trimIndent()
-        )
-        FeatureDetailsSection(
-            title = "Transactions",
-            imageVector = Icons.AutoMirrored.Default.ReceiptLong,
-            description = """
-                Record your expenses, income and transfers and we'll keep them in an organized list you can browse by month or year. You can also schedule transactions that repeat, and we'll add them for you when they're due.
-            """.trimIndent()
-        )
-        FeatureDetailsSection(
-            title = "Privacy first",
-            imageVector = Icons.Default.PrivacyTip,
-            description = """
-                Wais works offline with no account needed, so your financial data never leaves your device. Usage analytics and crash reports are off until you turn them on, and they never include your finances.
-            """.trimIndent()
-        )
+        ) {
+            features.chunked(columns).forEach { rowFeatures ->
+                Row(
+                    modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
+                    horizontalArrangement = Arrangement.spacedBy(horizontalSpacing)
+                ) {
+                    rowFeatures.forEach { feature ->
+                        FeatureDetailsSection(
+                            modifier = Modifier.weight(1f).fillMaxHeight(),
+                            title = feature.title,
+                            imageVector = feature.imageVector,
+                            description = feature.description
+                        )
+                    }
+                    repeat(columns - rowFeatures.size) {
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
+                }
+            }
+        }
     }
 }
 

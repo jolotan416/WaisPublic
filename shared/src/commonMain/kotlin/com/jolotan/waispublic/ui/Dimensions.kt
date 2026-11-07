@@ -23,6 +23,7 @@ object Dimensions {
     val rowSmallHorizontalSpacing = 12.dp
 
     val maxSectionWidth = 1500.dp
+    val minFeatureCardWidth = 420.dp
 
     // Image values
     val imageWidth = 320.dp
