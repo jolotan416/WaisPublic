@@ -20,13 +20,17 @@ import com.jolotan.waispublic.ui.util.LocalCompact
 fun DetailsSelectorComponent(
     modifier: Modifier = Modifier,
     style: Style = Style,
-    selectedDetailsType: DetailsType,
+    selectedDetailsType: DetailsType?,
     selectLabel: (DetailsType) -> Unit
 ) {
+    val isCompact = LocalCompact.current
     Row(
         modifier = modifier.styleable(style = style then Style {
             background(colors.background)
-            contentPadding(vertical = dimensions.columnVerticalSpacing, horizontal = 0.dp)
+            contentPadding(
+                vertical = AppTheme.dimensions.getColumnVerticalSpacing(isCompact),
+                horizontal = 0.dp
+            )
         }),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.rowHorizontalSpacing)
     ) {
@@ -34,9 +38,9 @@ fun DetailsSelectorComponent(
 
         DetailsType.entries.forEach { label ->
             val buttonStyle = if (label == selectedDetailsType) {
-                AppTheme.styles.button.primary
-            } else {
                 AppTheme.styles.button.secondary
+            } else {
+                AppTheme.styles.button.primary
             }
 
             CustomButton(

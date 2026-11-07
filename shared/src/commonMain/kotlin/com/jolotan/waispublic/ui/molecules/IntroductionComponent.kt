@@ -5,10 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.style.Style
@@ -17,7 +15,6 @@ import androidx.compose.foundation.style.then
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,7 +37,11 @@ fun IntroductionComponent(modifier: Modifier = Modifier, style: Style = Style) {
         Column(
             modifier = modifier.styleable(style = style),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnVerticalSpacing)
+            verticalArrangement = Arrangement.spacedBy(
+                AppTheme.dimensions.getColumnVerticalSpacing(
+                    LocalCompact.current
+                )
+            )
         ) {
             IntroductionComponentImage(modifier = Modifier.width(AppTheme.dimensions.compactImageWidth))
             IntroductionComponentDetails(
@@ -75,7 +76,11 @@ fun IntroductionComponentDetails(
 ) {
     Column(
         modifier = modifier.styleable(style = style),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnVerticalSpacing),
+        verticalArrangement = Arrangement.spacedBy(
+            AppTheme.dimensions.getColumnVerticalSpacing(
+                LocalCompact.current
+            )
+        ),
         horizontalAlignment = if (LocalCompact.current) Alignment.CenterHorizontally else Alignment.Start
     ) {
         val locationModifier = if (LocalCompact.current) {

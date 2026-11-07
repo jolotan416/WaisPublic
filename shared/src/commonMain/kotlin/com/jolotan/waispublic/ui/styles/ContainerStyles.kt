@@ -10,11 +10,11 @@ object ContainerStyles {
         contentColor(value = colors.onBackground)
     }
 
-    val section = Style {
+    fun getStyleSection(isCompact: Boolean) = Style {
         shape(shapes.medium)
         background(colors.surfaceContainer)
         contentColor(colors.onSurface)
-        contentPadding(value = dimensions.internalContainerPadding)
+        contentPadding(dimensions.getInternalContainerPadding(isCompact))
     }
 
     val image = Style {

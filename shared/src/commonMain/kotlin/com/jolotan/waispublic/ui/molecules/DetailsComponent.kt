@@ -5,12 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.style.Style
 import androidx.compose.foundation.style.styleable
 import androidx.compose.foundation.style.then
@@ -30,7 +27,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import com.jolotan.waispublic.ui.atoms.StyledText
@@ -49,17 +45,21 @@ import waispublic.shared.generated.resources.screenshot_dashboard
 import waispublic.shared.generated.resources.screenshot_savings
 import waispublic.shared.generated.resources.screenshot_transactions
 
-private const val SCREENSHOT_ASPECT_RATIO = 1080f / 2364f
-
 @Composable
 fun DetailsComponent(
     modifier: Modifier = Modifier,
     style: Style = Style,
-    detailsType: DetailsType,
+    detailsType: DetailsType?,
 ) {
+    detailsType ?: return
+
     Column(
         modifier = modifier.styleable(style = style),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnVerticalSpacing)
+        verticalArrangement = Arrangement.spacedBy(
+            AppTheme.dimensions.getColumnVerticalSpacing(
+                LocalCompact.current
+            )
+        )
     ) {
         StyledText(
             modifier = Modifier.fillMaxWidth(),
@@ -67,7 +67,10 @@ fun DetailsComponent(
             text = detailsType.title
         )
 
-        DetailsSections(modifier = Modifier.fillMaxWidth(), detailsType = detailsType)
+        DetailsSections(
+            modifier = Modifier.fillMaxWidth(),
+            detailsType = detailsType,
+        )
     }
 }
 
@@ -75,7 +78,7 @@ fun DetailsComponent(
 fun DetailsSections(
     modifier: Modifier = Modifier,
     style: Style = Style,
-    detailsType: DetailsType
+    detailsType: DetailsType,
 ) {
     when (detailsType) {
         DetailsType.Features -> FeaturesDetailsSections(modifier, style)
@@ -88,7 +91,11 @@ fun DetailsSections(
 fun FeaturesDetailsSections(modifier: Modifier = Modifier, style: Style = Style) {
     Column(
         modifier = modifier.styleable(style = style),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnVerticalSpacing)
+        verticalArrangement = Arrangement.spacedBy(
+            AppTheme.dimensions.getColumnVerticalSpacing(
+                LocalCompact.current
+            )
+        )
     ) {
         FeatureDetailsSection(
             title = "Multiple profiles",
@@ -155,7 +162,7 @@ fun FeatureDetailsSection(
     style: Style = Style,
     title: String,
     imageVector: ImageVector,
-    description: String
+    description: String,
 ) {
     DetailsSection(
         modifier = modifier.fillMaxWidth().styleable(style = style),
@@ -171,71 +178,31 @@ fun FeatureDetailsSection(
 }
 
 @Composable
-fun ScreenshotsDetailsSections(modifier: Modifier = Modifier, style: Style = Style) {
-    val screenshots = listOf(
-        Res.drawable.screenshot_dashboard to "Dashboard",
-        Res.drawable.screenshot_accounts to "Accounts",
-        Res.drawable.screenshot_transactions to "Transactions",
-        Res.drawable.screenshot_savings to "Savings goals",
-        Res.drawable.screenshot_cashflow to "Cash flow",
-        Res.drawable.screenshot_budget to "Budget allocation",
-    )
-
-    FlowRow(
-        modifier = modifier.styleable(style = style),
-        horizontalArrangement = Arrangement.spacedBy(
-            AppTheme.dimensions.rowHorizontalSpacing,
-            Alignment.CenterHorizontally
-        ),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnLargeVerticalSpacing)
-    ) {
-        screenshots.forEach { (image, caption) ->
-            ScreenshotItem(
-                modifier = if (LocalCompact.current) {
-                    Modifier.fillMaxWidth()
-                } else {
-                    Modifier.width(AppTheme.dimensions.imageWidth)
-                },
-                image = image,
-                caption = caption
-            )
-        }
-    }
-}
-
-@Composable
-fun ScreenshotItem(
+fun ScreenshotsDetailsSections(
     modifier: Modifier = Modifier,
     style: Style = Style,
-    image: DrawableResource,
-    caption: String
 ) {
-    Column(
-        modifier = modifier.styleable(style = style),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnSmallVerticalSpacing),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        StyledText(
-            modifier = Modifier.fillMaxWidth(),
-            style = AppTheme.styles.text.subSectionText then Style { textAlign(TextAlign.Center) },
-            text = caption
+    ImageRow(
+        modifier = modifier.styleable(style = style), images = listOf(
+            Res.drawable.screenshot_dashboard,
+            Res.drawable.screenshot_accounts,
+            Res.drawable.screenshot_transactions,
+            Res.drawable.screenshot_savings,
+            Res.drawable.screenshot_cashflow,
+            Res.drawable.screenshot_budget,
         )
-        Image(
-            modifier = Modifier.fillMaxWidth()
-                .aspectRatio(SCREENSHOT_ASPECT_RATIO)
-                .styleable(style = AppTheme.styles.container.image),
-            painter = painterResource(image),
-            contentScale = ContentScale.Fit,
-            contentDescription = caption
-        )
-    }
+    )
 }
 
 @Composable
 fun ContactDetailsSections(modifier: Modifier = Modifier, style: Style = Style) {
     Column(
         modifier = modifier.styleable(style = style),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnVerticalSpacing)
+        verticalArrangement = Arrangement.spacedBy(
+            AppTheme.dimensions.getColumnVerticalSpacing(
+                LocalCompact.current
+            )
+        )
     ) {
         ContactDetailsSection(
             title = "Support",
@@ -293,8 +260,16 @@ fun DetailsSection(
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
-        modifier = modifier.styleable(style = style then AppTheme.styles.container.section),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.columnVerticalSpacing),
+        modifier = modifier.styleable(
+            style = style then AppTheme.styles.container.getStyleSection(
+                LocalCompact.current
+            )
+        ),
+        verticalArrangement = Arrangement.spacedBy(
+            AppTheme.dimensions.getColumnVerticalSpacing(
+                LocalCompact.current
+            )
+        ),
         horizontalAlignment = if (LocalCompact.current) Alignment.CenterHorizontally else Alignment.Start
     ) {
         if (LocalCompact.current) {
