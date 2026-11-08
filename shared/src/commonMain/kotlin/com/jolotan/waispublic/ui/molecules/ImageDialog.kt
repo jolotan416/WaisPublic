@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
@@ -25,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.jolotan.waispublic.ui.atoms.StyledText
 import com.jolotan.waispublic.ui.theme.AppTheme
 import com.jolotan.waispublic.ui.util.LocalCompact
@@ -41,8 +44,15 @@ fun ImageDialog(
 ) {
     var selectedImageIndex by remember(selectedIndex) { mutableStateOf(selectedIndex) }
 
-    Dialog(onDismissRequest = onDismiss) {
-        Box(contentAlignment = Alignment.Center) {
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(usePlatformDefaultWidth = false)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxWidth()
+                .padding(AppTheme.dimensions.mainContainerPadding),
+            contentAlignment = Alignment.Center
+        ) {
             if (LocalCompact.current) {
                 ImageDialogColumn(
                     modifier = Modifier.fillMaxHeight(),
@@ -52,8 +62,12 @@ fun ImageDialog(
             }
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = if (LocalCompact.current) Arrangement.SpaceBetween
+                else Arrangement.spacedBy(
+                    AppTheme.dimensions.rowHorizontalSpacing,
+                    Alignment.CenterHorizontally
+                ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ImageDialogNavigationButton(
@@ -69,7 +83,7 @@ fun ImageDialog(
 
                 if (!LocalCompact.current) {
                     ImageDialogColumn(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.fillMaxHeight(),
                         image = images[selectedImageIndex],
                         onDismiss = onDismiss
                     )
@@ -134,6 +148,7 @@ fun ImageDialogColumn(
         )
     ) {
         Image(
+            modifier = Modifier.weight(1f),
             painter = painterResource(image),
             contentDescription = null
         )
